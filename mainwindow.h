@@ -9,6 +9,9 @@
 #include <QPushButton>
 #include <QSpacerItem>
 
+#include <QMenu>
+#include <QAction>
+
 #include <QImage>
 #include <opencv2/core.hpp>
 
@@ -35,9 +38,13 @@ private slots:
     void on_shoot_button_clicked();
     void when_buffer_full();
     void on_discard_button_clicked();
+    void on_about_boomerangish_action_triggered();
 
 private:
     Ui::MainWindow *ui;
+
+    QMenu *help_menu;
+    QAction *about_boomerangish_action;
 
     QWidget *central_widget;
     QVBoxLayout *outermost_vertical_layout;

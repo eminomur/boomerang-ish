@@ -7,8 +7,11 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QSpacerItem>
-#include <QGroupBox>
-#include <QRadioButton>
+
+#include <QMenu>
+#include <QAction>
+
+#include <QMessageBox>
 
 #include <QImage>
 #include <QPixmap>
@@ -24,15 +27,20 @@
 // Yapılacaklar:
 // Menubar readme
 // Uygulamaya geri tuşu koy buton vesaire süslemelerini yap, konumlarını düzelt
-// Görünmez olan buton yerine kareler sergilenebilir
-// Geri tuşu için bir buton yerine bir görsel, kutucuk da olabilir, araştır, ya da yazısız buton, arka planı ise geri tuşu resmi
-// Bunun yanı sıra en aşağıda kareleri düzenleyecek araçlar olmalı
+// Save button
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    help_menu = new QMenu("Help", this->menuBar());
+    this->menuBar()->addMenu(help_menu);
+
+    about_boomerangish_action = new QAction("About Boomerangish", help_menu);
+    help_menu->addAction(about_boomerangish_action);
+    about_boomerangish_action->setShortcut(Qt::Key_F1);
 
     // Following argument is necessary to register the type used in the slot named get_new_frame
     qRegisterMetaType<cv::Mat>("const cv::Mat&");
@@ -78,6 +86,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(shoot_button, &QPushButton::clicked, this, &MainWindow::on_shoot_button_clicked);
     connect(image_buffer, &ImageBuffer::buffer_full, this, &MainWindow::when_buffer_full);
     connect(discard_button, &QPushButton::clicked, this, &MainWindow::on_discard_button_clicked);
+    connect(about_boomerangish_action, &QAction::triggered, this, &MainWindow::on_about_boomerangish_action_triggered);
 
     // Start shooting immediately after everything is ready
     image_provider->start_shooting();
@@ -134,4 +143,12 @@ void MainWindow::on_discard_button_clicked()
     shoot_button->setVisible(true);
     discard_button->setVisible(false);
     save_button->setVisible(false);
+}
+
+void MainWindow::on_about_boomerangish_action_triggered()
+{
+    QMessageBox::about(this, "About Boomerangish", "An Implementation of Boomerang Application.\n"
+                                                   "Created for fun (and because of boredom, a bit).\n"
+                                                   "You are free to modify as you like.\n\n"
+                                                   "Muhammed Emin ÖMÜR - Software Engineer");
 }
