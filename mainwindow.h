@@ -54,8 +54,6 @@ private:
     QSpacerItem *horizontal_layout_spacer_item;
     QPushButton *save_button;
 
-    QSpacerItem *vertical_layout_spacer_item_between_horizontal_layout_and_image_label;
-
     QLabel *image_label;
     QPushButton *shoot_button;
 

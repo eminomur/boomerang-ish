@@ -25,8 +25,6 @@
 #include "app_config.h"
 
 // Yapılacaklar:
-// Menubar readme
-// Uygulamaya geri tuşu koy buton vesaire süslemelerini yap, konumlarını düzelt
 // Save button
 
 MainWindow::MainWindow(QWidget *parent)
@@ -55,27 +53,27 @@ MainWindow::MainWindow(QWidget *parent)
     outermost_vertical_layout->addItem(horizontal_layout_for_save_and_discard_button);
 
     discard_button = new QPushButton("Discard", this);
+    discard_button->setShortcut(Qt::Key_Escape);
     discard_button->setVisible(false);
     horizontal_layout_for_save_and_discard_button->addWidget(discard_button);
 
-    horizontal_layout_spacer_item = new QSpacerItem(100, 0);
+    horizontal_layout_spacer_item = new QSpacerItem(100, discard_button->size().height());
     horizontal_layout_for_save_and_discard_button->addSpacerItem(horizontal_layout_spacer_item);
 
     save_button = new QPushButton("Save", this);
+    save_button->setShortcut(Qt::Key_Control | Qt::Key_S);
     save_button->setVisible(false);
     horizontal_layout_for_save_and_discard_button->addWidget(save_button);
-
-//    vertical_layout_spacer_item_between_horizontal_layout_and_image_label = new QSpacerItem(0, 50);
-//    outermost_vertical_layout->addSpacerItem(vertical_layout_spacer_item_between_horizontal_layout_and_image_label);
 
     image_label = new QLabel(this);
     image_label->setFixedSize(QSize(FRAME_WIDTH, FRAME_HEIGHT));
     outermost_vertical_layout->addWidget(image_label);
 
     shoot_button = new QPushButton("Shoot", this);
+    shoot_button->setShortcut(Qt::Key_Space);
     outermost_vertical_layout->addWidget(shoot_button);
 
-//    outermost_vertical_layout->setAlignment(Qt::AlignTop);
+    outermost_vertical_layout->setAlignment(Qt::AlignVCenter | Qt::AlignHCenter | Qt::AlignCenter);
 
     image_provider = new ImageProvider(this, 0);
     image_buffer = new ImageBuffer(this);
