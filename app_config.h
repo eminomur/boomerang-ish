@@ -2,7 +2,7 @@
 #define APP_CONFIG_H
 
 const int APP_DISPLAY_WIDTH = 500;
-const int APP_DISPLAY_HEIGHT = 650;
+const int APP_DISPLAY_HEIGHT = 600;
 
 const int FRAME_WIDTH = 480;
 const int FRAME_HEIGHT = 480;
