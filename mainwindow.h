@@ -62,5 +62,12 @@ private:
     FramePlayer *frame_player;
 
     ImageBufferStatus image_buffer_status;
+
+    void initialize_menubar();
+    void initialize_central_widget();
+    void initialize_layouts_and_widgets();
+    void initialize_image_buffer();
+    void initialize_frame_player();
+    void initialize_image_provider();
 };
 #endif // MAINWINDOW_H
