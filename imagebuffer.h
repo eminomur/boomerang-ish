@@ -6,6 +6,8 @@
 #include <vector>
 #include <opencv2/core.hpp>
 
+#include <string>
+
 enum ImageBufferStatus
 {
     EMPTY,
@@ -24,6 +26,8 @@ public:
     bool full() const;
 
     std::vector<cv::Mat> *data();
+
+    void export_buffer(const std::string& file_name);
 
 signals:
     void buffer_full();

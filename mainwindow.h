@@ -38,6 +38,7 @@ private slots:
     void on_shoot_button_clicked();
     void when_buffer_full();
     void on_discard_button_clicked();
+    void on_save_button_clicked();
     void on_about_boomerangish_action_triggered();
 
 private:

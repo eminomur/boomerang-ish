@@ -16,16 +16,14 @@
 #include <QImage>
 #include <QPixmap>
 
-#include <QDebug>
+#include <QFileDialog>
+#include <QDir>
 
 #include "imageprovider.h"
 #include "imagebuffer.h"
 #include "frameplayer.h"
 
 #include "app_config.h"
-
-// Yapılacaklar:
-// Save button
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -95,6 +93,16 @@ void MainWindow::on_discard_button_clicked()
     save_button->setVisible(false);
 }
 
+void MainWindow::on_save_button_clicked()
+{
+    QString save_file_name = QFileDialog::getSaveFileName(this, "Save", QDir::homePath() + "/Desktop", "*.mp4");
+    if (save_file_name.endsWith(".mp4")) {
+        image_buffer->export_buffer(save_file_name.toStdString());
+    } else {
+        image_buffer->export_buffer(save_file_name.toStdString() + ".mp4");
+    }
+}
+
 void MainWindow::on_about_boomerangish_action_triggered()
 {
     QMessageBox::about(this, "About Boomerangish", "An Implementation of Boomerang Application.\n"
@@ -138,7 +146,7 @@ void MainWindow::initialize_layouts_and_widgets()
     horizontal_layout_for_save_and_discard_button->addSpacerItem(horizontal_layout_spacer_item);
 
     save_button = new QPushButton("Save", this);
-    save_button->setShortcut(Qt::Key_Control | Qt::Key_S);
+    save_button->setShortcut(QKeySequence::Save);
     save_button->setVisible(false);
     horizontal_layout_for_save_and_discard_button->addWidget(save_button);
 
@@ -154,6 +162,7 @@ void MainWindow::initialize_layouts_and_widgets()
 
     connect(shoot_button, &QPushButton::clicked, this, &MainWindow::on_shoot_button_clicked);
     connect(discard_button, &QPushButton::clicked, this, &MainWindow::on_discard_button_clicked);
+    connect(save_button, &QPushButton::clicked, this, &MainWindow::on_save_button_clicked);
 }
 
 void MainWindow::initialize_image_buffer()
